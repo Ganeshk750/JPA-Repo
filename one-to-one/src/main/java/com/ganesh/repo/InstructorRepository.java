@@ -1,4 +1,4 @@
-package com.ganesh;
+package com.ganesh.repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -9,3 +9,4 @@ import com.ganesh.entity.Instructor;
 public interface InstructorRepository extends JpaRepository<Instructor,  Long>{
 
 }
+
