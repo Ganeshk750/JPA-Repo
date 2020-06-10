@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 public class Instructor implements Serializable {
 	
 	/**
-	 *
+	 **
 	 */
 	private static final long serialVersionUID = -8250693869513551428L;
 	

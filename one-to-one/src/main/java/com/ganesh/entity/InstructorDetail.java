@@ -11,7 +11,7 @@ import javax.persistence.Id;
 public class InstructorDetail implements Serializable {
 	
 	/**
-	 * 
+	 ** 
 	 */
 	private static final long serialVersionUID = 5235844065385694765L;
 	
