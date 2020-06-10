@@ -1,5 +1,7 @@
 package com.ganesh.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +11,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Instructor {
+public class Instructor implements Serializable {
 	
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = -8250693869513551428L;
+	
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
@@ -25,6 +33,11 @@ public class Instructor {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "instructor_detail_id")
 	private InstructorDetail instructorDetails;
+	
+	
+	public Instructor() {
+		// TODO Auto-generated constructor stub
+	}
 	
 
 	public Instructor(String fristName, String lastName, String email) {
