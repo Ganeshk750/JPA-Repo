@@ -26,7 +26,6 @@ import com.ganesh.repo.InstructorRepository;
 @RequestMapping("/api/v1")
 public class InstructorController {
 	
-	Logger logger = (Logger) LoggerFactory.logger(InstructorController.class);
 	
 	private InstructorRepository instructorRepository;
 	
@@ -37,14 +36,14 @@ public class InstructorController {
 	
 	@GetMapping("/instructors")
     public List < Instructor > getInstructors() {
-		 logger.info("---GETALL---"+ logger.getName());
+		
         return instructorRepository.findAll();
     }
 
     @GetMapping("/instructors/{id}")
     public ResponseEntity < Instructor > getInstructorById(
         @PathVariable(value = "id") Long instructorId) throws ResourceNotFoundException {
-    	 logger.info("---GETBYID---"+ logger.getName());
+    	 
         Instructor user = instructorRepository.findById(instructorId)
             .orElseThrow(() -> new ResourceNotFoundException("Instructor not found :: " + instructorId));
         return ResponseEntity.ok().body(user);
@@ -52,7 +51,7 @@ public class InstructorController {
 
     @PostMapping("/instructors")
     public Instructor createUser(@Validated @RequestBody Instructor instructor) {
-    	 logger.info("---CREATE---"+ logger.getName());
+    	 
         return instructorRepository.save(instructor);
     }
 
@@ -60,7 +59,7 @@ public class InstructorController {
     public ResponseEntity < Instructor > updateUser(
         @PathVariable(value = "id") Long instructorId,
         @RequestBody Instructor userDetails) throws ResourceNotFoundException {
-    	 logger.info("---UPDAREBYID---"+ logger.getName());
+    	 
         Instructor user = instructorRepository.findById(instructorId)
             .orElseThrow(() -> new ResourceNotFoundException("Instructor not found :: " + instructorId));
         user.setEmail(userDetails.getEmail());
@@ -72,7 +71,7 @@ public class InstructorController {
     @DeleteMapping("/instructors/{id}")
     public Map < String, Boolean > deleteUser(
         @PathVariable(value = "id") Long instructorId) throws ResourceNotFoundException {
-    	 logger.info("---DELETEBYID---"+ logger.getName());
+    	
         Instructor instructor = instructorRepository.findById(instructorId)
             .orElseThrow(() -> new ResourceNotFoundException("Instructor not found :: " + instructorId));
 
