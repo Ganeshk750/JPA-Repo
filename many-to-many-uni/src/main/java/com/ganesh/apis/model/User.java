@@ -20,9 +20,11 @@ public class User {
 	private Long id;
 	private String firstName;
 	private String lastName;
-	private String moblie;
+	
 	@Column(unique = true)
 	private String email;
+	
+	private String mobileNo;
 	
 	@ManyToMany(targetEntity = Role.class, cascade = CascadeType.ALL)
 	private List<Role> roles;
@@ -51,20 +53,20 @@ public class User {
 		this.lastName = lastName;
 	}
 
-	public String getMoblie() {
-		return moblie;
-	}
-
-	public void setMoblie(String moblie) {
-		this.moblie = moblie;
-	}
-
 	public String getEmail() {
 		return email;
 	}
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getMobileNo() {
+		return mobileNo;
+	}
+
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
 	}
 
 	public List<Role> getRoles() {
@@ -75,6 +77,8 @@ public class User {
 		this.roles = roles;
 	}
 	
+	
+
 	
 
 }

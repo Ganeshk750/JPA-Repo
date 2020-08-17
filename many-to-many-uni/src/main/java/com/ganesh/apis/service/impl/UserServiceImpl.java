@@ -31,7 +31,8 @@ public class UserServiceImpl implements UserService {
 		}else {
 			users.setFirstName(user.getFirstName());
 			users.setLastName(user.getLastName());
-			users.setMoblie(user.getMoblie());
+			users.setEmail(user.getEmail());
+			users.setMobileNo(user.getMobileNo());
 			users.setRoles(user.getRoles());
 			User savedUser = userRepo.save(users);
 			if(userRepo.findById(savedUser.getId()).isPresent()) {
@@ -50,7 +51,7 @@ public class UserServiceImpl implements UserService {
 			newUser.setFirstName(user.getFirstName());
 			newUser.setLastName(user.getLastName());
 			newUser.setEmail(user.getEmail());
-			newUser.setMoblie(user.getMoblie());
+			newUser.setMobileNo(user.getMobileNo());
 			User savedUser = userRepo.save(newUser);
 			if(userRepo.findById(savedUser.getId()).isPresent()) {
 				return ResponseEntity.accepted().body("User updated successfully");
