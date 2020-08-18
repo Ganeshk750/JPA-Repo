@@ -19,12 +19,12 @@ public class BestResultController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/details/{id}")
+    @GetMapping("/users/details/{id}")
     public UserModel getUser(@PathVariable Long id) {
         return userService.getUser(id);
     }
 
-    @GetMapping("/user/all")
+    @GetMapping("/users/all")
     public List<UserModel> getUsers() {
         return userService.getUsers();
     }
