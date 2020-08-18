@@ -20,6 +20,14 @@ public class Role {
 			CascadeType.MERGE, CascadeType.REFRESH})
 	private List<User> users;
 
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -38,8 +46,7 @@ public class Role {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
-	
-	
+
+
 
 }

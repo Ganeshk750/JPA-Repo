@@ -1,14 +1,11 @@
 package com.ganesh.apis.service.impl;
 
-import java.util.Optional;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-
 import com.ganesh.apis.model.Role;
 import com.ganesh.apis.repository.RoleRepository;
 import com.ganesh.apis.service.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 @Service
 public class RoleServiceImpl implements RoleService {
@@ -34,17 +31,35 @@ public class RoleServiceImpl implements RoleService {
 		
 	}
 
+//	@Override
+//	public ResponseEntity<Object> deleteRole(Long id) {
+//		if(roleRepo.findById(id).isPresent()) {
+//			roleRepo.deleteById(id);
+//			if(roleRepo.findById(id).isPresent()) {
+//				return ResponseEntity.unprocessableEntity().body("Failed to delete the specified record");
+//			}else {
+//				return ResponseEntity.ok().body("Successfully deleted specified record");
+//			}
+//		}else {
+//			return ResponseEntity.unprocessableEntity().body("No Records Found");
+//		}
+//	}
+
 	@Override
 	public ResponseEntity<Object> deleteRole(Long id) {
-		if(roleRepo.findById(id).isPresent()) {
-			roleRepo.deleteById(id);
-			if(roleRepo.findById(id).isPresent()) {
-				return ResponseEntity.unprocessableEntity().body("Failed to delete the specified record");
-			}else {
-				return ResponseEntity.ok().body("Successfully deleted specified record");
+    	if(roleRepo.findById(id).isPresent()){
+    		if(roleRepo.getOne(id).getUsers().size() == 0){
+               roleRepo.deleteById(id);
+               if(roleRepo.findById(id).isPresent()){
+               	return ResponseEntity.unprocessableEntity().body("Failed to delete the specified record");
+			   }else{
+               	return ResponseEntity.ok().body("Successfully deleted specified record");
+			   }
+			}else{
+    			return ResponseEntity.unprocessableEntity().body("Failed to delete Please delete the users associated with role");
 			}
-		}else {
-			return ResponseEntity.unprocessableEntity().body("No Records Found");
+		}else{
+    		return ResponseEntity.unprocessableEntity().body("No Records founds");
 		}
 	}
 
