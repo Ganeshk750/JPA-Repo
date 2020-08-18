@@ -1,15 +1,18 @@
 package com.ganesh.apis.service.impl;
 
-import javax.transaction.Transactional;
-
+import com.ganesh.apis.model.RoleModel;
+import com.ganesh.apis.model.User;
+import com.ganesh.apis.model.UserModel;
+import com.ganesh.apis.repository.RoleRepository;
+import com.ganesh.apis.repository.UserRepository;
+import com.ganesh.apis.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.ganesh.apis.model.User;
-import com.ganesh.apis.repository.RoleRepository;
-import com.ganesh.apis.repository.UserRepository;
-import com.ganesh.apis.service.UserService;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -76,6 +79,51 @@ public class UserServiceImpl implements UserService {
 			return ResponseEntity.badRequest().body("Cannot find the user specified");
 		}
 		
+	}
+
+	@Override
+	public UserModel getUser(Long id) {
+		if(userRepo.findById(id).isPresent()) {
+
+			User user = userRepo.findById(id).get();
+			UserModel userModel = new UserModel();
+			userModel.setFirstName(user.getFirstName());
+			userModel.setLastName(user.getLastName());
+			userModel.setEmail(user.getEmail());
+			userModel.setMobileNo(user.getMobileNo());
+			userModel.setRoles( getRoleList(user));
+			return userModel;
+		} else return null;
+	}
+
+	@Override
+	public List<UserModel> getUsers() {
+		List<User> userList = userRepo.findAll();
+		if(userList.size()>0) {
+			List<UserModel> userModels = new ArrayList<>();
+			for (User user : userList) {
+				UserModel model = new UserModel();
+				model.setFirstName(user.getFirstName());
+				model.setLastName(user.getLastName());
+				model.setMobileNo(user.getMobileNo());
+				model.setEmail(user.getEmail());
+				model.setRoles(getRoleList(user));
+				userModels.add(model);
+			}
+			return userModels;
+		} else return new ArrayList<UserModel>();
+	}
+
+	@Override
+	public List<RoleModel> getRoleList(User user) {
+		List<RoleModel> roleList = new ArrayList<>();
+		for(int i=0; i< user.getRoles().size(); i++) {
+			RoleModel roleModel = new RoleModel();
+			roleModel.setName(user.getRoles().get(i).getName());
+			roleModel.setDescription(user.getRoles().get(i).getDescription());
+			roleList.add(roleModel);
+		}
+		return roleList;
 	}
 
 }
