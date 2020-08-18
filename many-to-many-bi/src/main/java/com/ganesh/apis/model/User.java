@@ -1,18 +1,14 @@
 package com.ganesh.apis.model;
 
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name="users")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class User {
 	
 	@Id
@@ -26,7 +22,8 @@ public class User {
 	
 	private String mobileNo;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
+	@ManyToMany(targetEntity=Role.class, cascade= {CascadeType.PERSIST, CascadeType.DETACH,
+			CascadeType.MERGE, CascadeType.REFRESH})
 	private List<Role> roles;
 
 	public Long getId() {
